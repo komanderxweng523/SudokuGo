@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "248399824864",
+    "project_id": "sudokugo-eef45",
+    "storage_bucket": "sudokugo-eef45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248399824864:android:771b330daf1078ba6ccd85",
+        "android_client_info": {
+          "package_name": "com.komanderxweng.SudokuGo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2-yxjr8XghcRdz43dcrKBhzXo7XSObEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
