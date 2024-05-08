@@ -59,10 +59,20 @@ public class Timer : MonoBehaviour
         stop_clock_ = true;
     }
 
+    public void StopTimer()
+    {
+        stop_clock_ = false;
+    }
+
+    public void RestartTimer()
+    {
+        delta_time = 0;
+        stop_clock_ = false;
+    }
     public void OnCancelSearch()
     {
-        stop_clock_ = true;
-        delta_time = 0;
+        StopTimer();
+        RestartTimer();
     }
 
     private void OnEnable()

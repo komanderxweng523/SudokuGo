@@ -72,18 +72,30 @@ public class MenuManager : MonoBehaviour
         leaderboardUI.SetActive(false);
     }
 
-    public void LoadScene()
+    public void LoadSceneMultiplayer()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("MultiGame");
+    }
+
+    public void LoadSceneSingleplayer()
+    {
+        SceneManager.LoadScene("SingleGame");
     }
 
     async void LoadData()
     {
-        Dictionary<string, string> PlayerNameData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "PlayerName" });
-        playerName.text = PlayerNameData["PlayerName"];
+        var playerData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> {
+            "PlayerName", "Trophies"
+        });
 
-        Dictionary<string, string> PlayerTrophyData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> { "Trophies" });
-        trophy.text = PlayerTrophyData["Trophies"];
+        if(playerData.TryGetValue("PlayerName", out var _playerName))
+        {
+            playerName.text = _playerName;
+        }
+        if(playerData.TryGetValue("Trophies", out var _trophy))
+        {
+            trophy.text = _trophy;
+        }
     }
 
     public void StartSearch()

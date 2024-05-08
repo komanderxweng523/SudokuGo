@@ -10,6 +10,7 @@ public class PlayerData : MonoBehaviour
     public Text playerName;
     public Text gamePlayed;
     public Text winRate;
+    public Text trophies;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class PlayerData : MonoBehaviour
     async void LoadPlayerData()
     {
         var playerData = await CloudSaveService.Instance.Data.LoadAsync(new HashSet<string> {
-            "PlayerName", "GamePlayed", "WinRate"
+            "PlayerName", "GamePlayed", "WinRate", "Trophies"
         });
 
         if(playerData.TryGetValue("PlayerName", out var _playerName))
@@ -34,6 +35,10 @@ public class PlayerData : MonoBehaviour
         if(playerData.TryGetValue("WinRate", out var _winRate))
         {
             winRate.text = _winRate;
+        }
+        if(playerData.TryGetValue("Trophies", out var _trophies))
+        {
+            trophies.text = _trophies;
         }
     }
 

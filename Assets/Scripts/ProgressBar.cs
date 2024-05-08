@@ -8,7 +8,6 @@ public class ProgressBar : MonoBehaviour
 {
     public int maximum;
     public int current;
-
     public Image mask;
     public Text currentNumber;
 

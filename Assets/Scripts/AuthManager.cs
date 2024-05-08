@@ -94,7 +94,7 @@ public class AuthManager : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
             UIManager.instance.CloseLoadingScreen();
-            Debug.LogFormat("User signed in successfully: " + username);
+            Debug.LogFormat("User signed in successfully: " + username + " with password " + password);
             UIManager.instance.WelcomeScreen();
             welcomeText.text = "Welcome back, " + username;
         }
@@ -102,6 +102,7 @@ public class AuthManager : MonoBehaviour
         {
             Debug.LogException(ex);
             UIManager.instance.CloseLoadingScreen();
+            Debug.LogError(password);
         }
         catch (RequestFailedException ex)
         {

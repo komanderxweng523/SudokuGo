@@ -84,4 +84,13 @@ public class GameEvents : MonoBehaviour
 		if(OnCancelSearch != null)
 			OnCancelSearch();
 	}
+
+	public delegate void ChangeTrophies();
+	public static event ChangeTrophies OnChangeTrophies;
+
+	public static void OnChangeTrophiesMethod()
+	{
+		if(OnChangeTrophies != null)
+			OnChangeTrophies();
+	}
 }

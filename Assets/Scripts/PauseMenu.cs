@@ -5,5 +5,5 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-	
+    
 }

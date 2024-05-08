@@ -1,27 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using Unity.Services.Core;
 using Unity.Services.Multiplay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using System.Threading.Tasks;
 
 public class MultiplayManager : MonoBehaviour
 {
+    // [SerializeField] private InputField ipAddressInputField;
+    // [SerializeField] private InputField portInputField;
+
     private IServerQueryHandler serverQueryHandler;
+
     private async void Start()
     {
-        if(Application.platform == RuntimePlatform.LinuxServer)
+        if (Application.platform == RuntimePlatform.LinuxServer)
         {
             Application.targetFrameRate = 60;
+
             await UnityServices.InitializeAsync();
+
             ServerConfig serverConfig = MultiplayService.Instance.ServerConfig;
-            serverQueryHandler = await MultiplayService.Instance.StartServerQueryHandlerAsync(2, "SudokuServer", "Sudoku", "75557", "0");
-            if(serverConfig.AllocationId != string.Empty)
+
+            serverQueryHandler = await MultiplayService.Instance.StartServerQueryHandlerAsync(2, "MyServer", "MyGameType", "0", "TestMap");
+
+            if (serverConfig.AllocationId != string.Empty)
             {
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData("0.0.0.0", serverConfig.Port, "0.0.0.0");
+
                 NetworkManager.Singleton.StartServer();
+
                 await MultiplayService.Instance.ReadyServerForPlayersAsync();
             }
         }
@@ -29,9 +40,9 @@ public class MultiplayManager : MonoBehaviour
 
     private async void Update()
     {
-        if(Application.platform == RuntimePlatform.LinuxServer)
+        if (Application.platform == RuntimePlatform.LinuxServer)
         {
-            if(serverQueryHandler != null)
+            if (serverQueryHandler != null)
             {
                 serverQueryHandler.CurrentPlayers = (ushort)NetworkManager.Singleton.ConnectedClientsIds.Count;
                 serverQueryHandler.UpdateServerCheck();
@@ -40,10 +51,12 @@ public class MultiplayManager : MonoBehaviour
         }
     }
 
-    public void JoinToServer()
-    {
-        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-        transport.SetConnectionData("127.0.0.1", (ushort)7777);
-        NetworkManager.Singleton.StartClient();
-    }
+    // public void JoinToServer()
+    // {
+    //     UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+
+    //     transport.SetConnectionData(ipAddressInputField.text, ushort.Parse(portInputField.text));
+
+    //     NetworkManager.Singleton.StartClient();
+    // }
 }
